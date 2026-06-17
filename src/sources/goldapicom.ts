@@ -24,7 +24,7 @@ function describeError(err: unknown): string {
 async function getLatestPrices(key: string) {
 
     const prices = Object.keys(METALS). reduce((acc, metal) => {
-        acc[metal] = 0 // Placeholder value, replace with actual API call
+        acc[metal] = 0
         return acc
     }, {} as Record<string, number>)
 

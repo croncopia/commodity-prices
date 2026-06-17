@@ -2,6 +2,7 @@ import goldapiio from "../sources/goldapiio";
 import goldapicom from "../sources/goldapicom";
 import metalpriceapi from "../sources/metalpriceapi";
 import dailymetalprice from "../sources/dailymetalprice";
+import metalcharts from "../sources/metalcharts";
 
 export default async function () {
 
@@ -11,8 +12,10 @@ export default async function () {
     // console.log(goldapicom_data)
     // const metalpriceapi_data = await metalpriceapi()
     // console.log(metalpriceapi_data)
-    const dailymetalprice_data = await dailymetalprice()
-    console.log(dailymetalprice_data)
+    // const dailymetalprice_data = await dailymetalprice()
+    // console.log(dailymetalprice_data)
+    const metalcharts_data = await metalcharts()
+    console.log(metalcharts_data)
 
     return []
 
