@@ -1,3 +1,5 @@
+import redactKey from '../utils/redact'
+
 const BASE_URL = "https://api.gold-api.com"
 const BASE_CURRENCY = "USD"
 export const METALS = {
@@ -15,7 +17,11 @@ export class GoldApiComError extends Error {
     }
 }
 
-async function getLatestPrices() {
+function describeError(err: unknown): string {
+    return err instanceof Error ? err.message : String(err)
+}
+
+async function getLatestPrices(key: string) {
 
     const prices = Object.keys(METALS). reduce((acc, metal) => {
         acc[metal] = 0 // Placeholder value, replace with actual API call
@@ -25,7 +31,11 @@ async function getLatestPrices() {
     for (const [metal, symbol] of Object.entries(METALS)) {
         const API_URL = `${BASE_URL}/price/${symbol}/${BASE_CURRENCY}`
 
-        const response = await fetch(API_URL)
+        const response = await fetch(API_URL, {
+            headers: {
+                "x-api-key": key,
+            }
+        })
 
         if (!response.ok) {
             const errorText = await response.text()
@@ -48,5 +58,27 @@ async function getLatestPrices() {
 }
 
 export default async function () {
-    return await getLatestPrices()
+
+    const keys = (process.env.GOLDAPICOM_KEY ?? '')
+        .split(',')
+        .map((key) => key.trim())
+        .filter(Boolean)
+
+    if (keys.length === 0) {
+        throw new GoldApiComError('GOLDAPICOM_KEY is not set')
+    }
+
+    const failures: string[] = []
+
+    for (const key of keys) {
+        try {
+            return await getLatestPrices(key)
+        } catch (err) {
+            const reason = describeError(err)
+            failures.push(`${redactKey(key)}: ${reason}`)
+            console.warn(`goldapicom: key ${redactKey(key)} failed (${reason}), trying next key`)
+        }
+    }
+
 }
+

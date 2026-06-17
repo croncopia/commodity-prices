@@ -3,22 +3,6 @@ import redactKey from '../utils/redact'
 const BASE_URL = "https://api.metalpriceapi.com"
 const BASE_CURRENCY = "USD"
 export const METALS = {
-    "aluminum": "ALU",
-    "cobalt": "XCO",
-    "copper": "XCU",
-    "gallium": "XGA",
-    "indium": "XIN",
-    "iron": "IRON",
-    "lead": "XPB",
-    "lithium": "XLI",
-    "molybdenum": "XMO",
-    "nickel": "NI",
-    "neodymium": "XND",
-    "tin": "XSN",
-    "tellurium": "XTE",
-    "uranium": "XU",
-    "zinc": "ZNC",
-    "rhodium": "XRH",
     "silver": "XAG",
     "gold": "XAU",
     "platinum": "XPT",
@@ -63,7 +47,10 @@ async function getLatestPrices(key: string) {
 
     const rates = data.rates
 
-    console.log(data, rates)
+    prices["silver"] = rates.USDXAG || 0
+    prices["gold"] = rates.USDXAU || 0
+    prices["platinum"] = rates.USDXPT || 0
+    prices["palladium"] = rates.USDXPD || 0
 
     return prices
 
