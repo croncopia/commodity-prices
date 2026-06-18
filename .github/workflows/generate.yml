@@ -30,6 +30,9 @@ jobs:
 
       - name: generate
         env:
+          PROXY_SERVER: ${{ vars.PROXY_SERVER }}
+          PROXY_USERNAME: ${{ vars.PROXY_USERNAME }}
+          PROXY_PASSWORD: ${{ vars.PROXY_PASSWORD }}
           GOLDAPICOM_KEY: ${{ vars.GOLDAPICOM_KEY }}
           GOLDAPIIO_KEY: ${{ vars.GOLDAPIIO_KEY }}
           METALPRICEAPI_KEY: ${{ vars.METALPRICEAPI_KEY }}
