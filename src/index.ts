@@ -1,12 +1,10 @@
-import metals from "./commodities/metals"
-
 import 'dotenv/config'
 
+import metals from "./commodities/metals"
+
 async function main() {
-
-    const metal_data = await metals()
-    console.log(metal_data)
-
+    const results = await metals()
+    console.log(results)
 }
 
 main().catch((e) => {
