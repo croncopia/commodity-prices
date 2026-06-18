@@ -95,6 +95,8 @@ async function getLatestPrices() {
 
     }
 
+    await browser.close();
+
     return prices
 
 }
