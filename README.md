@@ -1,4 +1,4 @@
-# croncopia/commodity-prices
+# [croncopia/commodity-prices](https://github.com/croncopia/commodity-prices)
 
 Aggregated commodity prices, rebuilt every 30 minutes from independent providers and published as static JSON — one file per commodity, no API key required, no rate limits.
 
