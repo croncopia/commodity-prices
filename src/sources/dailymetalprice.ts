@@ -1,3 +1,4 @@
+import puppeteer from 'puppeteer';
 import * as cheerio from 'cheerio';
 
 const BASE_URL = "https://www.dailymetalprice.com"
@@ -42,6 +43,11 @@ async function getLatestPrices() {
         return acc
     }, {} as Record<string, number>)
 
+    const browser = await puppeteer.launch({
+        headless: true,
+        args: [`--proxy-server=${process.env.PROXY_SERVER ?? ''}`],
+    });
+
     for (const [metal, symbol] of Object.entries(METALS)) {
         const API_URL = new URL(`${BASE_URL}/metalprices.php`)
         API_URL.searchParams.set('c', symbol)
@@ -49,14 +55,22 @@ async function getLatestPrices() {
         API_URL.searchParams.set('d', '2')
         API_URL.searchParams.set('x', BASE_CURRENCY)
 
-        const response = await fetch(API_URL)
+        const page = await browser.newPage();
 
-        if (!response.ok) {
-            const errorText = await response.text()
+        await page.authenticate({
+            username: process.env.PROXY_USERNAME ?? '',
+            password: process.env.PROXY_PASSWORD ?? '',
+        });
+
+        await page.goto(API_URL.toString());
+        const response = await page.content();
+
+        if (!response) {
+            const errorText = await page.evaluate(() => document.body.innerText);
             throw new DailyMetalPriceError(`API request failed with status ${response.status}: ${errorText}`)
         }
 
-        const $ = cheerio.load(await response.text());
+        const $ = cheerio.load(response);
         const text = $('.table:first > tbody:nth-child(2) > tr:nth-child(1) td:first').text()
 
         if (!text) {

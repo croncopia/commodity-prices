@@ -36,8 +36,18 @@ async function getLatestPrices() {
         return acc
     }, {} as Record<string, number>)
 
-    const browser = await puppeteer.launch();
+    const browser = await puppeteer.launch({
+        headless: true,
+        args: [`--proxy-server=${process.env.PROXY_SERVER ?? ''}`],
+    });
+
     const page = await browser.newPage();
+
+    await page.authenticate({
+        username: process.env.PROXY_USERNAME ?? '',
+        password: process.env.PROXY_PASSWORD ?? '',
+    });
+
     await page.goto(BASE_URL, { waitUntil: 'networkidle2' });
     await page.waitForSelector('body');
 
