@@ -1,5 +1,6 @@
 import puppeteer from 'puppeteer';
 import * as cheerio from 'cheerio';
+import { browser_args } from '../utils/pupeteer';
 
 const BASE_URL = "https://www.dailymetalprice.com"
 const BASE_CURRENCY = "USD"
@@ -45,7 +46,7 @@ async function getLatestPrices() {
 
     const browser = await puppeteer.launch({
         headless: true,
-        args: [`--proxy-server=${process.env.PROXY_SERVER ?? ''}`],
+        args: [...browser_args, `--proxy-server=${process.env.PROXY_SERVER ?? ''}`],
     });
 
     for (const [metal, symbol] of Object.entries(METALS)) {

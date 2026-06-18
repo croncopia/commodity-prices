@@ -1,5 +1,6 @@
 import puppeteer from 'puppeteer';
 import * as cheerio from 'cheerio';
+import { browser_args } from '../utils/pupeteer';
 
 import { copperLbToTroyOz } from "../utils/convert/copper";
 import { uraniumLbToTroyOz } from "../utils/convert/uranium";
@@ -38,7 +39,7 @@ async function getLatestPrices() {
 
     const browser = await puppeteer.launch({
         headless: true,
-        args: [`--proxy-server=${process.env.PROXY_SERVER ?? ''}`],
+        args: [...browser_args, `--proxy-server=${process.env.PROXY_SERVER ?? ''}`],
     });
 
     const page = await browser.newPage();
