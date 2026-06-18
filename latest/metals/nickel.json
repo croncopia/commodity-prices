@@ -1,0 +1,13 @@
+{
+  "base": "USD",
+  "price": {
+    "troy_ounce": 0.5526465757824,
+    "gram": 0.017768,
+    "kilogram": 17.768,
+    "ounce": 0.5037143264407999,
+    "pound": 8.05942923016,
+    "metric_ton": 17768
+  },
+  "sources": 1,
+  "timestamp": "2026-06-18T19:50:53.388Z"
+}
