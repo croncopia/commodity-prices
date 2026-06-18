@@ -1,0 +1,76 @@
+name: Generate
+
+on:
+  schedule:
+    - cron: "*/30 * * * *"
+  workflow_dispatch: # Allow manual trigger
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    environment: actions
+
+    steps:
+      - name: Checkout workflow repository
+        uses: actions/checkout@v4
+        with:
+          ref: workflow
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "18"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: generate
+        env:
+          GOLDAPICOM_KEY: ${{ vars.GOLDAPICOM_KEY }}
+          GOLDAPIIO_KEY: ${{ vars.GOLDAPIIO_KEY }}
+          METALPRICEAPI_KEY: ${{ vars.METALPRICEAPI_KEY }}
+        run: npx tsx src/index.ts
+
+      - name: Checkout target repository
+        uses: actions/checkout@v4
+        with:
+          repository: croncopia/commodity-prices
+          ref: main
+          path: target-repo
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Copy all generated files to target repository
+        run: |
+          # Copy everything from out directory recursively
+          cp -r out/* target-repo/latest/
+
+          # Remove the out directory itself if it gets copied
+          rm -rf target-repo/latest/out
+
+          cp index.json target-repo/
+          cp stats.json target-repo/
+
+      - name: Commit and push all changes
+        run: |
+          cd target-repo
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          # Add all files (new, modified, deleted)
+          git add -A
+
+          # Check if there are changes to commit
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+          else
+            # Get list of changed files for commit message
+            CHANGED_FILES=$(git diff --name-only --staged | head -10 | tr '\n' ', ' | sed 's/, $//')
+            COMMIT_MSG="Update rates - $(date +'%Y-%m-%d %H:%M:%S')"
+
+            git commit -m "$COMMIT_MSG"
+            git push
+          fi
