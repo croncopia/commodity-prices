@@ -51,8 +51,8 @@ jobs:
           # Remove the out directory itself if it gets copied
           rm -rf target-repo/latest/out
 
-          cp index.json target-repo/
-          cp stats.json target-repo/
+          #cp index.json target-repo/
+          #cp stats.json target-repo/
 
       - name: Commit and push all changes
         run: |
