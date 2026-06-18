@@ -13,26 +13,26 @@ const OUT_DIR = join(process.cwd(), "out", "metals");
 
 export default async function () {
   const sources = await Promise.all([
-    goldapiio().catch((e) => {
-      console.warn("goldapiio failed:", e.message);
-      return undefined;
-    }),
-    goldapicom().catch((e) => {
-      console.warn("goldapicom failed:", e.message);
-      return undefined;
-    }),
-    metalpriceapi().catch((e) => {
-      console.warn("metalpriceapi failed:", e.message);
-      return undefined;
-    }),
+    // goldapiio().catch((e) => {
+    //   console.warn("goldapiio failed:", e.message);
+    //   return undefined;
+    // }),
+    // goldapicom().catch((e) => {
+    //   console.warn("goldapicom failed:", e.message);
+    //   return undefined;
+    // }),
+    // metalpriceapi().catch((e) => {
+    //   console.warn("metalpriceapi failed:", e.message);
+    //   return undefined;
+    // }),
     dailymetalprice().catch((e) => {
       console.warn("dailymetalprice failed:", e.message);
       return undefined;
     }),
-    metalcharts().catch((e) => {
-      console.warn("metalcharts failed:", e.message);
-      return undefined;
-    }),
+    // metalcharts().catch((e) => {
+    //   console.warn("metalcharts failed:", e.message);
+    //   return undefined;
+    // }),
   ]);
 
   const pricesByMetal: Record<string, number[]> = {};

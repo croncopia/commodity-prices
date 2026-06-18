@@ -1,6 +1,9 @@
-import puppeteer from 'puppeteer';
+import puppeteer from 'puppeteer-extra';
 import * as cheerio from 'cheerio';
 import { browser_args } from '../utils/pupeteer';
+import stealthPlugin from 'puppeteer-extra-plugin-stealth';
+
+puppeteer.use(stealthPlugin());
 
 const BASE_URL = "https://www.dailymetalprice.com"
 const BASE_CURRENCY = "USD"
@@ -58,12 +61,30 @@ async function getLatestPrices() {
 
         const page = await browser.newPage();
 
+        await page.setUserAgent(
+            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36",
+        );
+
+        await page.setViewport({
+            width: Math.floor(1024 + Math.random() * 100),
+            height: Math.floor(768 + Math.random() * 100),
+        });
+
         await page.authenticate({
             username: process.env.PROXY_USERNAME ?? '',
             password: process.env.PROXY_PASSWORD ?? '',
         });
 
-        await page.goto(API_URL.toString());
+        await page.goto(API_URL.toString(), {
+            waitUntil: 'networkidle0',
+        });
+
+        // wait 2 seconds
+        await new Promise(resolve => setTimeout(resolve, 2000));
+
+        //screenshot for debugging
+        await page.screenshot({ path: `screenshot-${metal}.png` });
+
         const response = await page.content();
 
         if (!response) {
