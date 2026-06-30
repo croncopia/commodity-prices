@@ -4,31 +4,31 @@ Aggregated commodity prices, rebuilt every 30 minutes from independent providers
 
 ## How to access the data?
 
-Access is as simple as fetching the specific JSON file. There are multiple ways to do this depending on your caching and freshness needs — to target a specific commodity, change `metal/gold` to the relevant commodity path:
+Access is as simple as fetching the specific JSON file. There are multiple ways to do this depending on your caching and freshness needs — to target a specific commodity, change `metals/gold` to the relevant commodity path:
 
 **GitHub Pages** — served as a static site, good if you want a less verbose url and a stable endpoint with predictable caching via GitHub's own CDN:
 ```
-https://croncopia.github.io/commodity-prices/latest/metal/gold.json
+http://commodity.croncopia.com/latest/metals/gold.json
 ```
 
 **jsDelivr** — CDN-cached globally, fast and reliable for production use (cache typically refreshes every ~12-24h, or instantly if you pin a commit SHA instead of a branch):
 ```
-https://cdn.jsdelivr.net/gh/croncopia/commodity-prices/latest/metal/gold.json
+https://cdn.jsdelivr.net/gh/croncopia/commodity-prices/latest/metals/gold.json
 ```
 
 **Statically** — alternative CDN proxy, similar caching behaviour to jsDelivr, useful as a fallback or for load distribution:
 ```
-https://cdn.statically.io/gh/croncopia/commodity-prices/main/latest/metal/gold.json
+https://cdn.statically.io/gh/croncopia/commodity-prices/main/latest/metals/gold.json
 ```
 
 **Githack** — serves files with correct `Content-Type` headers, handy if you're fetching this client-side and need proper MIME types rather than `text/plain`:
 ```
-https://raw.githack.com/croncopia/commodity-prices/main/latest/metal/gold.json
+https://raw.githack.com/croncopia/commodity-prices/main/latest/metals/gold.json
 ```
 
 **GitHub raw** — direct from the repo, always reflects the latest commit, no caching layer (subject to GitHub's rate limits on heavy use):
 ```
-https://raw.githubusercontent.com/croncopia/commodity-prices/refs/heads/main/latest/metal/gold.json
+https://raw.githubusercontent.com/croncopia/commodity-prices/refs/heads/main/latest/metals/gold.json
 ```
 
 > [!NOTE] 
