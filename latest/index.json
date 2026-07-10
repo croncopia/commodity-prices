@@ -21,7 +21,8 @@
     "tellurium": "/latest/metals/tellurium.json",
     "tin": "/latest/metals/tin.json",
     "uranium": "/latest/metals/uranium.json",
-    "zinc": "/latest/metals/zinc.json"
+    "zinc": "/latest/metals/zinc.json",
+    "steal": "/latest/metals/steal.json"
   },
   "energy": {
     "brent_crude": "/latest/energy/brent_crude.json",
