@@ -39,8 +39,8 @@
     "coal_capp": "/latest/energy/coal_capp.json",
     "coal_newcastle": "/latest/energy/coal_newcastle.json",
     "coal_coking": "/latest/energy/coal_coking.json",
-    "marine_vlsfo": "/latest/energy/marine_vlsfo.json",
     "marine_mgo_05s": "/latest/energy/marine_mgo_05s.json",
-    "marine_hfo_380": "/latest/energy/marine_hfo_380.json"
+    "marine_hfo_380": "/latest/energy/marine_hfo_380.json",
+    "": "/latest/energy/.json"
   }
 }
