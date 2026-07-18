@@ -24,23 +24,5 @@
     "zinc": "/latest/metals/zinc.json",
     "steal": "/latest/metals/steal.json"
   },
-  "energy": {
-    "brent_crude": "/latest/energy/brent_crude.json",
-    "wti_crude": "/latest/energy/wti_crude.json",
-    "gasoline": "/latest/energy/gasoline.json",
-    "diesel": "/latest/energy/diesel.json",
-    "heating_oil": "/latest/energy/heating_oil.json",
-    "jet_fuel": "/latest/energy/jet_fuel.json",
-    "natural_gas_henry_hub": "/latest/energy/natural_gas_henry_hub.json",
-    "natural_gas_nbp": "/latest/energy/natural_gas_nbp.json",
-    "natural_gas_ttf": "/latest/energy/natural_gas_ttf.json",
-    "lng_jkm": "/latest/energy/lng_jkm.json",
-    "coal_generic": "/latest/energy/coal_generic.json",
-    "coal_capp": "/latest/energy/coal_capp.json",
-    "coal_newcastle": "/latest/energy/coal_newcastle.json",
-    "coal_coking": "/latest/energy/coal_coking.json",
-    "marine_mgo_05s": "/latest/energy/marine_mgo_05s.json",
-    "marine_hfo_380": "/latest/energy/marine_hfo_380.json",
-    "": "/latest/energy/.json"
-  }
+  "energy": {}
 }
